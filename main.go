@@ -83,11 +83,27 @@ func main() {
 	fmt.Printf("bounding box %v %v\n", x1, x2)
 	lowerLeft := findCenter(width, height, x1, x2)
 	line.SetPosition(lowerLeft.X, lowerLeft.Y)
+	line.SetTextLowerBound(0.5)
+	// alpha == 1 means no opacity
+	line.SetColor(1, 1, 1, 1)
 
-	gl.ClearColor(0, 0, 0, 0.0)
+	//gl.ClearColor(1, 1, 1, 0.0)
+	flow := float32(1)
+	color := float32(0.0)
+	gl.ClearColor(0, 1, 1, 0.0)
 	for !window.ShouldClose() {
 		gl.Clear(gl.COLOR_BUFFER_BIT)
 
+		color += flow * 0.01
+		if color > 1.0 {
+			color = 1
+			flow = -1
+		}
+		if color < 0.0 {
+			color = 0
+			flow = +1
+		}
+		line.SetColor(color, color, color, 1)
 		line.Draw()
 
 		window.SwapBuffers()
