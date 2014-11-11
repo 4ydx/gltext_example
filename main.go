@@ -85,12 +85,11 @@ func main() {
 	line.SetPosition(lowerLeft.X, lowerLeft.Y)
 	line.SetTextLowerBound(0.5)
 	// alpha == 1 means no opacity
-	line.SetColor(1, 1, 1, 1)
+	line.SetColor(0, 0, 0, 1)
 
-	//gl.ClearColor(1, 1, 1, 0.0)
 	flow := float32(1)
 	color := float32(0.0)
-	gl.ClearColor(0, 1, 1, 0.0)
+	gl.ClearColor(0.4, 0.4, 0.4, 0.0)
 	for !window.ShouldClose() {
 		gl.Clear(gl.COLOR_BUFFER_BIT)
 
