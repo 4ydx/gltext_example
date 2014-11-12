@@ -2,4 +2,7 @@
 
 A simple example that centers text on screen.
 
-![Alt text](/example.png?raw=true "Working Example")
+- Dynamic text color change.
+- Dynamic resizing.
+
+![Alt text](/example.gif?raw=true "Working Example")
