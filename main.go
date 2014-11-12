@@ -108,7 +108,7 @@ func main() {
 		}
 		text.SetColor(color, color, color, 1)
 		text.SetScale(color + 0.5)
-		text.Draw(font)
+		text.Draw()
 
 		window.SwapBuffers()
 		glfw.PollEvents()
