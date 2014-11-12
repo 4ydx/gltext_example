@@ -103,6 +103,7 @@ func main() {
 			flow = +1
 		}
 		line.SetColor(color, color, color, 1)
+		line.SetScale(color + 0.5)
 		line.Draw()
 
 		window.SwapBuffers()
