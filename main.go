@@ -68,24 +68,28 @@ func main() {
 	defer fd.Close()
 
 	scale := int32(32)
-	line, err := gltext.LoadTruetype(fd, scale, 32, 127)
+	font, err := gltext.LoadTruetype(fd, scale, 32, 127)
 	if err != nil {
 		panic(err)
 	}
 	width, height := window.GetSize()
 
-	line.ResizeWindow(float32(width), float32(height))
+	font.ResizeWindow(float32(width), float32(height))
+	font.SetTextLowerBound(0.5)
 
+	text, err := gltext.LoadText(font)
+	if err != nil {
+		panic(err)
+	}
 	str := ">-- I am Batman --<"
-	x1, x2 := line.SetString(str)
+	x1, x2 := text.SetString(font, str)
 
 	// find the center of the string based on the bounding box
 	fmt.Printf("bounding box %v %v\n", x1, x2)
 	lowerLeft := findCenter(width, height, x1, x2)
-	line.SetPosition(lowerLeft.X, lowerLeft.Y)
-	line.SetTextLowerBound(0.5)
+	text.SetPosition(lowerLeft.X, lowerLeft.Y)
 	// alpha == 1 means no opacity
-	line.SetColor(0, 0, 0, 1)
+	text.SetColor(0, 0, 0, 1)
 
 	flow := float32(1)
 	color := float32(0.0)
@@ -102,12 +106,13 @@ func main() {
 			color = 0
 			flow = +1
 		}
-		line.SetColor(color, color, color, 1)
-		line.SetScale(color + 0.5)
-		line.Draw()
+		text.SetColor(color, color, color, 1)
+		text.SetScale(color + 0.5)
+		text.Draw(font)
 
 		window.SwapBuffers()
 		glfw.PollEvents()
 	}
-	line.Release()
+	text.Release()
+	font.Release()
 }
