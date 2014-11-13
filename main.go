@@ -81,18 +81,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	str := ">-- I am Batman --<"
-	x1, x2 := text.SetString(font, str)
+	str := "ABCDEFG"
 
-	// find the center of the string based on the bounding box
-	fmt.Printf("bounding box %v %v\n", x1, x2)
-	lowerLeft := findCenter(width, height, x1, x2)
-	text.SetPosition(lowerLeft.X, lowerLeft.Y)
-	// alpha == 1 means no opacity
-	text.SetColor(0, 0, 0, 1)
+	// return values can be used to position on the screen
+	_, _ = text.SetString(font, str)
 
+	xPos := float32(0)
 	flow := float32(1)
-	color := float32(0.0)
+	color := float32(0)
 	gl.ClearColor(0.4, 0.4, 0.4, 0.0)
 	for !window.ShouldClose() {
 		gl.Clear(gl.COLOR_BUFFER_BIT)
@@ -106,6 +102,8 @@ func main() {
 			color = 0
 			flow = +1
 		}
+		xPos += flow * 0.001
+		text.SetPosition(xPos, 0)
 		text.SetColor(color, color, color, 1)
 		text.SetScale(color + 0.5)
 		text.Draw()
