@@ -77,14 +77,11 @@ func main() {
 	font.ResizeWindow(float32(width), float32(height))
 	font.SetTextLowerBound(0.5)
 
-	text, err := gltext.LoadText(font)
-	if err != nil {
-		panic(err)
-	}
+	text := gltext.LoadText(font)
 	str := "ABCDEFG"
 
 	// return values can be used to position on the screen
-	_, _ = text.SetString(font, str)
+	_, _ = text.SetString(str)
 
 	xPos := float32(0)
 	flow := float32(1)
