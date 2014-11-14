@@ -16,18 +16,6 @@ func errorCallback(err glfw.ErrorCode, desc string) {
 	fmt.Printf("%v: %v\n", err, desc)
 }
 
-func findCenter(windowWidth int, windowHeight int, x1, x2 gltext.Point) (lowerLeft gltext.Point) {
-	widthHalf := windowWidth / 2
-	heightHalf := windowHeight / 2
-
-	lineWidthHalf := (x2.X - x1.X) / 2
-	lineHeightHalf := (x2.Y - x1.Y) / 2
-
-	lowerLeft.X = float32(widthHalf) - lineWidthHalf
-	lowerLeft.Y = float32(heightHalf) - lineHeightHalf
-	return
-}
-
 func main() {
 	runtime.LockOSThread()
 
