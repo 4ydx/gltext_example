@@ -87,7 +87,7 @@ func main() {
 		}
 		xPos = flow * float32(width) * color
 		text.SetPosition(xPos, 0)
-		text.SetColor(color, color, color, 1)
+		text.SetColor(color, color, color)
 		text.SetScale(color + 0.5)
 		text.Draw()
 
