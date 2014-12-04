@@ -63,7 +63,6 @@ func main() {
 	width, height := window.GetSize()
 
 	font.ResizeWindow(float32(width), float32(height))
-	font.SetTextLowerBound(0.5)
 
 	text := gltext.LoadText(font)
 	str := "ABCDEFG"
