@@ -3,24 +3,19 @@ package main
 import (
 	"fmt"
 	gltext "github.com/4ydx/gltext"
-	glfw "github.com/go-gl/glfw3"
-	gl32 "github.com/go-gl/glow/gl-core/3.2/gl"
-	"github.com/go-gl/glow/gl-core/3.3/gl"
+	"github.com/go-gl/gl/v3.3-core/gl"
+	"github.com/go-gl/glfw/v3.1/glfw"
 	"os"
 	"runtime"
 )
 
 var useStrictCoreProfile = (runtime.GOOS == "darwin")
 
-func errorCallback(err glfw.ErrorCode, desc string) {
-	fmt.Printf("%v: %v\n", err, desc)
-}
-
 func main() {
 	runtime.LockOSThread()
 
-	glfw.SetErrorCallback(errorCallback)
-	if !glfw.Init() {
+	err := glfw.Init()
+	if err != nil {
 		panic("glfw error")
 	}
 	defer glfw.Terminate()
@@ -29,10 +24,10 @@ func main() {
 	glfw.WindowHint(glfw.ContextVersionMajor, 3)
 	glfw.WindowHint(glfw.ContextVersionMinor, 3)
 	if useStrictCoreProfile {
-		glfw.WindowHint(glfw.OpenglForwardCompatible, glfw.True)
-		glfw.WindowHint(glfw.OpenglProfile, glfw.OpenglCoreProfile)
+		glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
+		glfw.WindowHint(glfw.OpenGLProfile, glfw.OpenGLCoreProfile)
 	}
-	glfw.WindowHint(glfw.OpenglDebugContext, glfw.True)
+	glfw.WindowHint(glfw.OpenGLDebugContext, glfw.True)
 
 	window, err := glfw.CreateWindow(640, 480, "Testing", nil, nil)
 	if err != nil {
@@ -42,9 +37,6 @@ func main() {
 
 	if err := gl.Init(); err != nil {
 		panic(err)
-	}
-	if err := gl32.Init(); err != nil {
-		fmt.Println("could not initialize GL 3.2")
 	}
 	version := gl.GoStr(gl.GetString(gl.VERSION))
 	fmt.Println("Opengl version", version)
