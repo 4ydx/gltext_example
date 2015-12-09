@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	gltext "github.com/4ydx/gltext"
+	"github.com/4ydx/gltext"
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/glfw/v3.1/glfw"
+	"golang.org/x/image/math/fixed"
 	"os"
 	"runtime"
 )
@@ -47,7 +48,7 @@ func main() {
 	}
 	defer fd.Close()
 
-	scale := int32(32)
+	scale := fixed.Int26_6(32)
 	font, err := gltext.LoadTruetype(fd, scale, 32, 127)
 	if err != nil {
 		panic(err)
