@@ -55,11 +55,11 @@ func main() {
 	scale := fixed.Int26_6(32)
 	runesPerRow := fixed.Int26_6(128)
 
-	font, err := gltext.LoadTruetype("fontconfigs", 1)
+	font, err := gltext.LoadTruetype("fontconfigs")
 	if err == nil {
 		fmt.Println("Font loaded from disk...")
 	} else {
-		font, err = gltext.NewTruetype(fd, scale, 12000, 27000, runesPerRow)
+		font, err = gltext.NewTruetype(fd, scale, 12000, 30000, runesPerRow)
 		if err != nil {
 			panic(err)
 		}
