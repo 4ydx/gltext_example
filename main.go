@@ -42,45 +42,54 @@ func main() {
 	version := gl.GoStr(gl.GetString(gl.VERSION))
 	fmt.Println("Opengl version", version)
 
-	fd, err := os.Open("font/luximr.ttf")
+	// code from here
+	gltext.IsDebug = true
+
+	fd, err := os.Open("font/font_1_honokamin.ttf")
 	if err != nil {
 		panic(err)
 	}
 	defer fd.Close()
 
+	// ascii chars from 32 to 127
 	scale := fixed.Int26_6(32)
-	font, err := gltext.LoadTruetype(fd, scale, 32, 127)
-	if err != nil {
-		panic(err)
-	}
-	width, height := window.GetSize()
+	runesPerRow := fixed.Int26_6(128)
 
+	font, err := gltext.LoadTruetype("fontconfigs", 1)
+	if err == nil {
+		fmt.Println("Font loaded from disk...")
+	} else {
+		font, err = gltext.NewTruetype(fd, scale, 12000, 27000, runesPerRow)
+		if err != nil {
+			panic(err)
+		}
+		font.Config.Save("fontconfigs")
+	}
+
+	width, height := window.GetSize()
 	font.ResizeWindow(float32(width), float32(height))
 
-	text := gltext.LoadText(font)
-	str := "ABCDEFG"
+	scaleMin, scaleMax := float32(1.0), float32(1.1)
+	text := gltext.NewText(font, scaleMin, scaleMax)
+	str := "梅干しが大好き"
+	for _, s := range str {
+		fmt.Println("%c: %d\n", s, rune(s))
+	}
 	text.SetString(str)
 
-	xPos := float32(-width)
-	flow := float32(1)
 	color := float32(0)
 	gl.ClearColor(0.4, 0.4, 0.4, 0.0)
 	for !window.ShouldClose() {
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
-		color += flow * 0.01
+		color += color * 0.01
 		if color > 1.0 {
 			color = 1
-			flow = -1
 		}
 		if color < 0.0 {
 			color = 0
-			flow = +1
 		}
-		xPos = flow * float32(width) * color
-		text.SetPosition(xPos, 0)
 		text.SetColor(color, color, color)
-		text.SetScale(color + 0.5)
 		text.Draw()
 
 		window.SwapBuffers()
