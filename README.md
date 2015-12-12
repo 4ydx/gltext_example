@@ -1,3 +1,6 @@
+This project is folded into https://github.com/4ydx/gltext.git.
+Updates will no longer happen in this repository.
+
 ### Usage of https://github.com/4ydx/gltext.git
 
 A simple example that centers text on screen.
