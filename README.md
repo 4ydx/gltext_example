@@ -6,7 +6,7 @@ A simple example that centers text on screen.
 - Dynamic resizing.
 - Example with japanese text.
 
-![Alt text](/example.gif?raw=true "Working Example")
+![Alt text](/example.png?raw=true "Working Example")
 
 Free personal and commercial font:
 http://www.freejapanesefont.com/honoka-mincho-download/
